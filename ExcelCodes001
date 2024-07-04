@@ -1,3 +1,4 @@
+' 遍歷選中列表的第一列，自動序列化有數字的單元格
 Sub ReplaceWithSequence()
     Dim rng As Range
     Dim cell As Range
