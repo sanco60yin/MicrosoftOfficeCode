@@ -1,0 +1,36 @@
+Sub RemoveDuplicateWords()
+    Dim cell As Range
+    Dim words() As String
+    Dim uniqueWords As Collection
+    Dim result As String
+    Dim i As Long
+    
+    ' 获取当前选中的单元格
+    Set cell = ActiveCell
+    
+    ' 将单元格中的内容按空格分割成数组
+    words = Split(cell.Value, " ")
+    
+    ' 创建一个Collection来存储唯一的单词
+    Set uniqueWords = New Collection
+    
+    On Error Resume Next '忽略Collection添加重复项时的错误
+    
+    ' 循环遍历单词数组，添加到Collection中
+    For i = LBound(words) To UBound(words)
+        uniqueWords.Add words(i), words(i)
+    Next i
+    
+    On Error GoTo 0 '恢复默认的错误处理
+    
+    ' 将唯一单词组合成字符串
+    For i = 1 To uniqueWords.Count
+        result = result & uniqueWords(i) & " "
+    Next i
+    
+    ' 去掉结果字符串末尾的空格
+    result = Trim(result)
+    
+    ' 将结果写回到单元格
+    cell.Value = result
+End Sub
