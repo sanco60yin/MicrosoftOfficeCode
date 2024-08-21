@@ -1,0 +1,31 @@
+Sub FindWriteStrings()
+    Dim ws As Worksheet
+    Dim targetString As String
+    Dim lastRow As Long
+    Dim i As Long
+    Dim outputRow As Long
+    
+    ' 获取目标字符串，即当前选中单元格的值
+    targetString = ActiveCell.Value
+    
+    ' 定义工作表
+
+    Set ws = ThisWorkbook.Sheets("Write")
+    
+    ' 找到B列的最后一行
+    lastRow = ws.Cells(ws.Rows.Count, "B").End(xlUp).Row
+    
+    ' 初始化输出行，当前选中单元格的下一行
+    outputRow = ActiveCell.Row + 1
+    
+    ' 循环遍历B列
+    For i = 1 To lastRow
+        If InStr(ws.Cells(i, "B").Value, targetString) > 0 Then
+            ' 如果B列包含目标字符串，将对应的A列的值存储在当前选中单元格的下方
+            ActiveCell.Offset(outputRow - ActiveCell.Row, 0).Value = ws.Cells(i, "A").Value
+            outputRow = outputRow + 1
+        End If
+    Next i
+    
+
+End Sub
