@@ -1,0 +1,30 @@
+' 遍歷選中列表的第一列，自動序列化有數字的單元格
+Sub ReplaceWithSequence()
+    Dim rng As Range
+    Dim cell As Range
+    Dim sequenceNumber As Long
+    
+    ' 獲取選中的範圍
+    Set rng = Selection
+    
+    sequenceNumber = -1
+    
+    ' 只遍歷選中範圍的第一列
+    For Each cell In rng.Columns(1).Cells
+        ' 檢查是否是數字
+        If IsNumeric(cell.Value) And cell.Value <> "" Then
+            ' 如果序列号未初始化则初始化
+            If sequenceNumber < 0 Then
+                If cell.Value >= 0 Then
+                    sequenceNumber = cell.Value
+                Else
+                    sequenceNumber = 1
+                End If
+            End If
+            ' 如果是數字，替換為序列號
+            cell.Value = sequenceNumber
+            ' 序列號遞增
+            sequenceNumber = sequenceNumber + 1
+        End If
+    Next cell
+End Sub
