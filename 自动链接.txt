@@ -1,1 +1,2 @@
-=HYPERLINK("#B" & (MATCH(INDIRECT("B"&ROW()), B:B, 0) + MATCH(INDIRECT("B"&ROW()), INDIRECT("B" & MATCH(INDIRECT("B"&ROW()), B:B, 0) + 1 & ":B1048576"), 0)), "参照")
+根据本单元所在行的B列的值，查找B列该值出现第二次所在的单元格，链接到该单元格
+=HYPERLINK("#B" & (MATCH(INDIRECT("B"&ROW()), INDIRECT("B" & (ROW() + 1) & ":B1048576"), 0) + ROW()), "参照")
